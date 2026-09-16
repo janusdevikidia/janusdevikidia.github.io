@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janus — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root[data-theme="dark"] {
+            --bg-color: #08080a;
+            --gradient-1: #4f46e5;
+            --gradient-2: #7c3aed;
+            --gradient-3: #2563eb;
+            --card-bg: rgba(18, 18, 22, 0.65);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --btn-primary-bg: #ffffff;
+            --btn-primary-text: #000000;
+            --btn-secondary-bg: transparent;
+            --btn-secondary-text: #ffffff;
+            --btn-secondary-border: #ffffff;
+            --tag-bg: rgba(255, 255, 255, 0.05);
+            --tag-border: rgba(255, 255, 255, 0.15);
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #f8fafc;
+            --gradient-1: #38bdf8;
+            --gradient-2: #818cf8;
+            --gradient-3: #c084fc;
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --btn-primary-bg: #000000;
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: transparent;
+            --btn-secondary-text: #000000;
+            --btn-secondary-border: #000000;
+            --tag-bg: rgba(0, 0, 0, 0.04);
+            --tag-border: rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Arrière-plan animé à dégradé fluide */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            filter: blur(100px);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 18s ease-in-out infinite alternate;
+        }
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: var(--gradient-1);
+        }
+
+        .blob-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: var(--gradient-2);
+            animation-delay: -6s;
+        }
+
+        .blob-3 {
+            top: 40%;
+            left: 30%;
+            width: 40vw;
+            height: 40vw;
+            background: var(--gradient-3);
+            animation-delay: -12s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, 40px) scale(1.1); }
+            100% { transform: translate(-40px, 80px) scale(0.9); }
+        }
+
+        /* Bouton Thème */
+        .theme-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 10;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 0; /* Rectangle strict */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--text-main);
+        }
+
+        /* Content Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 0; /* Rectangle structuré */
+            padding: 60px 50px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            position: relative;
+        }
+
+        /* Titres et Textes */
+        .badge-header {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            border-left: 2px solid var(--text-main);
+            padding-left: 10px;
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            max-width: 600px;
+        }
+
+        /* Grille de Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 45px;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            border: 1px solid var(--tag-border);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 0; /* Rectangle strict */
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Boutons Rectangles Noir/Blanc */
+        .actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 0; /* Rectangle strict */
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+            border: 1px solid var(--btn-primary-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background-color: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 1px solid var(--btn-secondary-border);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            background-color: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+        }
+
+        /* Adaptations Mobile */
+        @media (max-width: 640px) {
+            .card {
+                padding: 35px 25px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+        <span id="themeIcon">☀️</span>
+    </button>
+
+    <div class="container">
+        <div class="card">
+            <span class="badge-header">Présentation de janusdevikidia</span>
+            <h1>janus<br><span class="text-gradient">devikidia</span></h1>
+            
+            <p>Contributeur agueri de Vikidia. Développeur individuel accès sur le design et la modernité pour créer des outils intelligents et originaux.</p>
+
+            <div class="tags-container">
+                <span class="tag">Vikidia</span>
+                <span class="tag">GitHub</span>
+                <span class="tag">Python</span>
+                <span class="tag">UI Design</span>
+            </div>
+
+            <div class="actions">
+                <a href="https://github.com/janusdevikidia" target="_blank" class="btn btn-primary">Explorer mon GitHub</a>
+                <a href="https://fr.vikidia.org/wiki/User_talk:Janus" target="_blank" class="btn btn-secondary">Prendre contact ?</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        // Détection de la préférence enregistrée ou du système
+        const savedTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        setTheme(savedTheme);
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+    </script>
+
+</body>
+</html>
