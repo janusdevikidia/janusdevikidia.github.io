@@ -7,13 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         :root[data-theme="dark"] {
             --bg-color: #08080a;
             --gradient-1: #4f46e5;
             --gradient-2: #7c3aed;
             --gradient-3: #2563eb;
+            --gradient-4: #3b82f6;
             --card-bg: rgba(18, 18, 22, 0.65);
             --card-border: rgba(255, 255, 255, 0.12);
             --text-main: #ffffff;
@@ -32,6 +33,7 @@
             --gradient-1: #38bdf8;
             --gradient-2: #818cf8;
             --gradient-3: #c084fc;
+            --gradient-4: #60a5fa;
             --card-bg: rgba(255, 255, 255, 0.75);
             --card-border: rgba(0, 0, 0, 0.1);
             --text-main: #0f172a;
@@ -74,47 +76,124 @@
             height: 100vh;
             z-index: 0;
             overflow: hidden;
-            filter: blur(100px);
-            opacity: 0.6;
+            filter: blur(90px);
+            opacity: 0.75;
             pointer-events: none;
         }
 
         .blob {
             position: absolute;
             border-radius: 50%;
-            animation: float 18s ease-in-out infinite alternate;
+            will-change: transform, opacity;
         }
 
         .blob-1 {
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: var(--gradient-1);
+            top: -15%;
+            left: -15%;
+            width: 55vw;
+            height: 55vw;
+            background: radial-gradient(circle, var(--gradient-1) 0%, var(--gradient-3) 100%);
+            animation: float-1 14s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
         }
 
         .blob-2 {
-            bottom: -20%;
-            right: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: var(--gradient-2);
-            animation-delay: -6s;
+            bottom: -25%;
+            right: -15%;
+            width: 65vw;
+            height: 65vw;
+            background: radial-gradient(circle, var(--gradient-2) 0%, var(--gradient-1) 100%);
+            animation: float-2 18s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
         }
 
         .blob-3 {
-            top: 40%;
-            left: 30%;
-            width: 40vw;
-            height: 40vw;
-            background: var(--gradient-3);
-            animation-delay: -12s;
+            top: 30%;
+            left: 20%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, var(--gradient-3) 0%, var(--gradient-2) 100%);
+            animation: float-3 12s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
         }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(80px, 40px) scale(1.1); }
-            100% { transform: translate(-40px, 80px) scale(0.9); }
+        .blob-4 {
+            bottom: 20%;
+            left: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, var(--gradient-4) 0%, var(--gradient-1) 100%);
+            animation: float-4 16s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        /* Animations dynamiques : grands mouvements, réductions et expansions fortes */
+        @keyframes float-1 {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.8;
+            }
+            33% {
+                transform: translate(30vw, 25vh) scale(1.7);
+                opacity: 1;
+            }
+            66% {
+                transform: translate(-10vw, 40vh) scale(0.4);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(20vw, -10vh) scale(1.3);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes float-2 {
+            0% {
+                transform: translate(0, 0) scale(1.1);
+                opacity: 0.7;
+            }
+            33% {
+                transform: translate(-35vw, -30vh) scale(0.35);
+                opacity: 0.4;
+            }
+            66% {
+                transform: translate(-20vw, -60vh) scale(1.6);
+                opacity: 0.95;
+            }
+            100% {
+                transform: translate(10vw, -20vh) scale(0.7);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes float-3 {
+            0% {
+                transform: translate(0, 0) scale(0.5);
+                opacity: 0.6;
+            }
+            33% {
+                transform: translate(-25vw, 30vh) scale(1.8);
+                opacity: 1;
+            }
+            66% {
+                transform: translate(30vw, -20vh) scale(0.4);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(-15vw, -35vh) scale(1.4);
+                opacity: 0.85;
+            }
+        }
+
+        @keyframes float-4 {
+            0% {
+                transform: translate(0, 0) scale(1.4);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translate(45vw, -40vh) scale(0.3);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(25vw, 15vh) scale(1.6);
+                opacity: 1;
+            }
         }
 
         /* Bouton Thème */
@@ -128,7 +207,7 @@
             color: var(--text-main);
             width: 48px;
             height: 48px;
-            border-radius: 0; /* Rectangle strict */
+            border-radius: 0;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -155,7 +234,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--card-border);
-            border-radius: 0; /* Rectangle structuré */
+            border-radius: 0;
             padding: 60px 50px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
             position: relative;
@@ -211,7 +290,7 @@
             border: 1px solid var(--tag-border);
             color: var(--text-main);
             padding: 8px 16px;
-            border-radius: 0; /* Rectangle strict */
+            border-radius: 0;
             font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -228,7 +307,7 @@
         .btn {
             text-decoration: none;
             padding: 16px 32px;
-            border-radius: 0; /* Rectangle strict */
+            border-radius: 0;
             font-weight: 600;
             font-size: 0.9rem;
             text-transform: uppercase;
@@ -290,17 +369,18 @@
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
     </div>
 
     <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
-        <span id="themeIcon">☀️</span>
+        <i class="ph ph-moon" id="themeIcon"></i>
     </button>
 
     <div class="container">
         <div class="card">
             <span class="badge-header">Présentation de janusdevikidia</span>
             <h1>janus<br><span class="text-gradient">devikidia</span></h1>
-            
+
             <p>Contributeur agueri de Vikidia. Développeur individuel axé sur le design et la modernité pour créer des outils intelligents et originaux.</p>
 
             <div class="tags-container">
@@ -323,14 +403,19 @@
         const themeIcon = document.getElementById('themeIcon');
         const html = document.documentElement;
 
-        // Détection de la préférence enregistrée ou du système
         const savedTheme = localStorage.getItem('theme') || 
             (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 
         function setTheme(theme) {
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+
+            // Mettre à jour l'icône du bouton selon le thème
+            if (theme === 'dark') {
+                themeIcon.className = 'ph ph-moon';
+            } else {
+                themeIcon.className = 'ph ph-sun';
+            }
         }
 
         setTheme(savedTheme);
