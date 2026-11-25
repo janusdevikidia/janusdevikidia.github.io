@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabPatrol</title>
+    <!-- ====== À MODIFIER : titre (balise title ci-dessus), image, date, texte ====== -->
+    <meta name="image" content="images/collab_patrol.png">  
+    <meta name="date" content="2026-11-25">    <!-- AAAA-MM-JJ (facultatif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+    <div class="gradient-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème"><span id="themeIcon">☀️</span></button>
+    <div class="container"><div class="card">
+        <div id="blog-root" data-mode="article"></div>
+        <!-- Le texte : séparez les paragraphes par une ligne vide -->
+        <script type="text/plain" id="texte">
+Avec mon accolyte de toujours, Célian, nous avons longement contribué à CollabPatrol un projet permettant la collaboration des patrouilleurs d'un wiki (style Mediawiki) sur une page de différence.
+
+Nous avons apporté diverses nouvelles fontionnalités comme les mentions (avec un notification via l'extension Echo désormais indispensable pour installer l'extension), une nouvelle interface en OOUI beaucoup plus propre notamment sur mobile et des optimisations diverses.
+        </script>
+    </div></div>
+    <script src="blog.js"></script>
+</body>
+</html>
